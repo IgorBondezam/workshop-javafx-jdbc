@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.listeners.DataChangeListener;
 import GUI.util.Alerts;
 import GUI.util.Constraints;
 import GUI.util.Utils;
@@ -15,9 +16,13 @@ import model.entities.Department;
 import model.service.DepartmentService;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DepartmentFormController implements Initializable {
+
+    private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     private Department entity;
 
@@ -48,6 +53,7 @@ public class DepartmentFormController implements Initializable {
             entity = getFormData();
             service.saveOrUpdate(entity);
             Alerts.showAlert("Object Saved", null, "Success to save a new Department", Alert.AlertType.INFORMATION);
+            notifyDataChangeListeners();
             Utils.currentStage(event).close();
         }catch (DbException e){
             Alerts.showAlert("Error Saving object", null, e.getMessage(), Alert.AlertType.ERROR);
@@ -76,6 +82,16 @@ public class DepartmentFormController implements Initializable {
 
     public void setService(DepartmentService service) {
         this.service = service;
+    }
+
+    public void subscribeDataChangeListener(DataChangeListener listener){
+        dataChangeListeners.add(listener);
+    }
+
+    private void notifyDataChangeListeners() {
+        for (DataChangeListener listener: dataChangeListeners) {
+            listener.onDataChanged();
+        }
     }
 
     @Override
