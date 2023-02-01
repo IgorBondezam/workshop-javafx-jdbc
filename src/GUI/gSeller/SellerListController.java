@@ -1,4 +1,4 @@
-package GUI;
+package GUI.gSeller;
 
 import GUI.listeners.DataChangeListener;
 import GUI.util.Alerts;
@@ -71,7 +71,7 @@ public class SellerListController implements Initializable, DataChangeListener {
     public void onBtNewAction(ActionEvent event){
         Stage parentStage = Utils.currentStage(event);
         Seller obj = new Seller();
-        createDialogForm(obj,"/GUI/SellerForm.fxml", parentStage);
+        createDialogForm(obj,"/GUI/gSeller/SellerForm.fxml", parentStage);
     }
 
     public void setSellerSerivce(SellerService service){
@@ -114,29 +114,29 @@ public class SellerListController implements Initializable, DataChangeListener {
 
 
     private void createDialogForm(Seller obj, String absoluteName, Stage parentStage){
-//        try{
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-//            Pane pane = loader.load();
-//
-//            SellerFormController controller = loader.getController();
-//            controller.setEntity(obj);
-//            controller.setService(new SellerService());
-//            controller.subscribeDataChangeListener(this);
-//            controller.updateFormData();
-//
-//            Stage dialogStage = new Stage();
-//            dialogStage.setTitle("Enter Seller Data");
-//            dialogStage.setScene(new Scene(pane));
-//            dialogStage.setResizable(false);
-//            dialogStage.initOwner(parentStage);
-//            dialogStage.initModality(Modality.WINDOW_MODAL);
-//            dialogStage.showAndWait();
-//
-//
-//        }catch (IOException e){
-//            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
-//
-//        }
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane = loader.load();
+
+            SellerFormController controller = loader.getController();
+            controller.setEntity(obj);
+            controller.setService(new SellerService());
+            controller.subscribeDataChangeListener(this);
+            controller.updateFormData();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Enter Seller Data");
+            dialogStage.setScene(new Scene(pane));
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(parentStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.showAndWait();
+
+
+        }catch (IOException e){
+            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+
+        }
     }
 
     @Override
@@ -161,7 +161,7 @@ public class SellerListController implements Initializable, DataChangeListener {
                 button.setTextFill(Color.BLUE);
                 button.setOnAction(
                         event -> createDialogForm(
-                                obj, "/gui/SellerForm.fxml",Utils.currentStage(event)));
+                                obj, "/GUI/gSeller/SellerForm.fxml",Utils.currentStage(event)));
             }
         });
     }

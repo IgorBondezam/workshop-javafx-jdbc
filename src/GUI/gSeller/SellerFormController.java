@@ -1,4 +1,4 @@
-package GUI;
+package GUI.gSeller;
 
 import GUI.listeners.DataChangeListener;
 import GUI.util.Alerts;
@@ -12,20 +12,20 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.entities.Department;
+import model.entities.Seller;
 import model.exceptions.ValidationException;
-import model.service.DepartmentService;
+import model.service.SellerService;
 
 import java.net.URL;
 import java.util.*;
 
-public class DepartmentFormController implements Initializable {
+public class SellerFormController implements Initializable {
 
     private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
-    private Department entity;
+    private Seller entity;
 
-    private DepartmentService service;
+    private SellerService service;
 
     @FXML
     private TextField txtId;
@@ -51,7 +51,7 @@ public class DepartmentFormController implements Initializable {
         try{
             entity = getFormData();
             service.saveOrUpdate(entity);
-            Alerts.showAlert("Object Saved", null, "Success to save a new Department", Alert.AlertType.INFORMATION);
+            Alerts.showAlert("Object Saved", null, "Success to save a new Seller", Alert.AlertType.INFORMATION);
             notifyDataChangeListeners();
             Utils.currentStage(event).close();
         }catch (DbException e){
@@ -64,8 +64,8 @@ public class DepartmentFormController implements Initializable {
 
     }
 
-    private Department getFormData() {
-        Department obj = new Department();
+    private Seller getFormData() {
+        Seller obj = new Seller();
 
         ValidationException exception = new ValidationException("Validation error");
 
@@ -86,11 +86,11 @@ public class DepartmentFormController implements Initializable {
         Utils.currentStage(event).close();
     }
 
-    public void setEntity(Department entity) {
+    public void setEntity(Seller entity) {
         this.entity = entity;
     }
 
-    public void setService(DepartmentService service) {
+    public void setService(SellerService service) {
         this.service = service;
     }
 

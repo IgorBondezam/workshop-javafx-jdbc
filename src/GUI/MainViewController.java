@@ -1,5 +1,7 @@
 package GUI;
 
+import GUI.gDepartment.DepartmentListController;
+import GUI.gSeller.SellerListController;
 import GUI.util.Alerts;
 import application.Main;
 import javafx.fxml.FXML;
@@ -18,9 +20,7 @@ import model.service.SellerService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Vector;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class MainViewController implements Initializable {
 
@@ -33,7 +33,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemSellerAction(){
-        loadView("/GUI/SellerList.fxml", (SellerListController controller) ->{
+        loadView("/GUI/gSeller/SellerList.fxml", (SellerListController controller) ->{
             controller.setSellerSerivce(new SellerService());
             controller.updateTableView();
         });
@@ -41,7 +41,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemDepartmentAction(){
-        loadView("/GUI/DepartmentList.fxml", (DepartmentListController controller) ->{
+        loadView("/GUI/gDepartment/DepartmentList.fxml", (DepartmentListController controller) ->{
             controller.setDepartmentSerivce(new DepartmentService());
             controller.updateTableView();
         });

@@ -1,4 +1,4 @@
-package GUI;
+package GUI.gDepartment;
 
 import GUI.listeners.DataChangeListener;
 import GUI.util.Alerts;
@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -24,7 +23,6 @@ import javafx.stage.Stage;
 import model.entities.Department;
 import model.service.DepartmentService;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -62,7 +60,7 @@ public class DepartmentListController implements Initializable, DataChangeListen
     public void onBtNewAction(ActionEvent event){
         Stage parentStage = Utils.currentStage(event);
         Department obj = new Department();
-        createDialogForm(obj,"/GUI/DepartmentForm.fxml", parentStage);
+        createDialogForm(obj, "/GUI/gDepartment/DepartmentForm.fxml", parentStage);
     }
 
     public void setDepartmentSerivce(DepartmentService service){
@@ -147,7 +145,7 @@ public class DepartmentListController implements Initializable, DataChangeListen
                 button.setTextFill(Color.BLUE);
                 button.setOnAction(
                         event -> createDialogForm(
-                                obj, "/gui/DepartmentForm.fxml",Utils.currentStage(event)));
+                                obj, "/GUI/gDepartment/DepartmentForm.fxml",Utils.currentStage(event)));
             }
         });
     }
