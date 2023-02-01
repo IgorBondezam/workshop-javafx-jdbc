@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -37,7 +38,7 @@
             <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorEmail" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label text="Birth Date" GridPane.rowIndex="3" />
-            <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="dpBirthDate" prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorBirthDate" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label text="Base Salary" GridPane.rowIndex="4" />
             <TextField fx:id="txtBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -49,6 +50,7 @@
                </children>
             </HBox>
             <Label text="Department" GridPane.rowIndex="5" />
+            <ComboBox fx:id="comboBoxDepartment" prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
