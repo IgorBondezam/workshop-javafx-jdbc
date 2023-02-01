@@ -4,6 +4,7 @@ import GUI.listeners.DataChangeListener;
 import GUI.util.Alerts;
 import GUI.util.Utils;
 import application.Main;
+import db.DbIntegrityException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,16 +14,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Department;
 import model.service.DepartmentService;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DepartmentListController implements Initializable, DataChangeListener {
@@ -42,6 +48,9 @@ public class DepartmentListController implements Initializable, DataChangeListen
 
     @FXML
     private TableColumn<Department, Department> tableColumnEdit;
+
+    @FXML
+    private TableColumn<Department, Department> tableColumnRemove;
 
     @FXML
     private Button btNew;
@@ -86,6 +95,7 @@ public class DepartmentListController implements Initializable, DataChangeListen
         obsList = FXCollections.observableArrayList(list);
         tableViewDepartment.setItems(obsList);
         initEditButtons();
+        initRemoveButtons();
     }
 
 
@@ -133,11 +143,50 @@ public class DepartmentListController implements Initializable, DataChangeListen
                     return;
                 }
                 setGraphic(button);
+                button.setStyle("-fx-background-color: yellow");
+                button.setTextFill(Color.BLUE);
                 button.setOnAction(
                         event -> createDialogForm(
                                 obj, "/gui/DepartmentForm.fxml",Utils.currentStage(event)));
             }
         });
+    }
+
+
+    private void initRemoveButtons() {
+        tableColumnRemove.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tableColumnRemove.setCellFactory(param -> new TableCell<Department, Department>() {
+            private Button button = new Button("remove");
+
+            @Override
+            protected void updateItem(Department obj, boolean empty) {
+                super.updateItem(obj, empty);
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(button);
+                button.setStyle("-fx-background-color: #dd4040");
+                button.setTextFill(Color.WHITE);
+                button.setOnAction(event -> removeEntity(obj));
+            }
+        });
+    }
+
+    private void removeEntity(Department obj) {
+        Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
+
+        if(result.get() == ButtonType.OK){
+            if(service == null){
+                throw new IllegalStateException("Service was null");
+            }
+            try {
+                service.remote(obj);
+                updateTableView();
+            }catch (DbIntegrityException e){
+                Alerts.showAlert("Error removing object", null, e.getMessage(), Alert.AlertType.ERROR);
+            }
+        }
     }
 
 
